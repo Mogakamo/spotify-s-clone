@@ -13,7 +13,7 @@ function Sidebar() {
   const { data: session, status } = useSession();
 
   return (
-    <div className="text-gray-500 p-5 sm:text-sm border-r border-gray-900">
+    <div className="text-gray-500 p-5 sm:text-sm border-r border-gray-900 overscroll-y-scroll">
       <div className="space-y-4">
         <button
           className="flex p-2 items-center space-x-2 hover:text-white"
