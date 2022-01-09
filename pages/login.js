@@ -1,11 +1,15 @@
-import React from 'react'
+import Head from "next/head";
+import React from "react";
 
 function Login() {
-    return (
-        <div>
-           <h1>This is a Login page</h1> 
-        </div>
-    )
+  return (
+    <div>
+      <Head>
+        <title>Spotify - Login</title>
+      </Head>
+      <h1>This is a Login page</h1>
+    </div>
+  );
 }
 
-export default Login
+export default Login;
