@@ -31,15 +31,11 @@ function Sidebar() {
   console.log(playlists);
 
   return (
-    <div className="text-gray-500 p-5 sm:text-sm border-r border-gray-900 overflow-y-scroll scrollbar-hide 
-    h-screen text-xs lg:text-sm sm:max-w-[12rem] lg:max-w-[15rem] hidden md:inline-flex">
+    <div
+      className="text-gray-500 p-5 sm:text-sm border-r border-gray-900 overflow-y-scroll scrollbar-hide 
+    h-screen text-xs lg:text-sm sm:max-w-[12rem] lg:max-w-[15rem] hidden md:inline-flex"
+    >
       <div className="space-y-4">
-        <button
-          className="flex p-2 items-center space-x-2 hover:text-white"
-          onClick={() => signOut()}
-        >
-          <p>Logout</p>
-        </button>
         <button className="flex p-2 items-center space-x-2 hover:text-white">
           <HomeIcon className="h-5 w-5" />
           <p>Home</p>
@@ -71,7 +67,13 @@ function Sidebar() {
 
         {playlists.map((playlist) => {
           return (
-            <p key={playlist.id} onClick={() => {setPlaylistId(playlist.id)}} className="cursor-pointer hover:text-white">
+            <p
+              key={playlist.id}
+              onClick={() => {
+                setPlaylistId(playlist.id);
+              }}
+              className="cursor-pointer hover:text-white"
+            >
               {playlist.name}
             </p>
           );
