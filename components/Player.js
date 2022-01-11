@@ -1,4 +1,11 @@
-import { SwitchHorizontalIcon } from "@heroicons/react/outline";
+import {
+  
+  SwitchHorizontalIcon,
+} from "@heroicons/react/outline";
+import {RewindIcon, PauseIcon,
+    PlayIcon,
+    FastForwardIcon,
+    ReplyIcon,} from "@heroicons/react/solid"
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -33,10 +40,22 @@ function Player() {
   useEffect(() => {
     if (spotifyApi.getAccessToken() && !currentTrackId) {
       // fetch current song info
-      fetchCurrentSong()
-      setVolume(50)
+      fetchCurrentSong();
+      setVolume(50);
     }
   }, [currentTrackId, spotifyApi, session]);
+
+  const handlePlayPause = () => {
+      spotifyApi.getMyCurrentPlaybackState().then((data) => {
+          if (spotifyApi.getAccessToken() && data.body.is_playing) {
+              spotifyApi.pause()
+              setIsPlaying(false)
+          } else {
+              spotifyApi.play()
+              setIsPlaying(true)
+          }
+      })
+  }
 
   return (
     <div className="h-24 bg-gradient-to-b from-black to-gray-900 text-white grid grid-cols-3 text-xs md:text-base px-2 md:px-8">
@@ -48,16 +67,30 @@ function Player() {
           alt=""
         />
         <div>
-            <h3>{songInfo?.name}</h3>
-            <p>{songInfo?.artists?.[0].name}</p>
+          <h3>{songInfo?.name}</h3>
+          <p>{songInfo?.artists?.[0].name}</p>
         </div>
       </div>
       {/* Center */}
-      <div>
-          <SwitchHorizontalIcon className="w-5 h-5" />
+      <div className="flex items-center justify-evenly">
+        <SwitchHorizontalIcon className="button" />
+        <RewindIcon className="button" 
+        />
+        {isPlaying ? (
+          <PauseIcon onClick={handlePlayPause} className="button w-10 h-10" />
+        ) : (
+          <PlayIcon onClick={handlePlayPause} className="button w-10 h-10" />
+        )}
+        <FastForwardIcon className="button" 
+        />
+        <ReplyIcon className="button" onClick={spotifyApi.setRepeat()} />
       </div>
     </div>
   );
 }
 
 export default Player;
+
+
+        // onClick={() => spotifyApi.skipToPrevious()} 
+        // onClick={() => spotifyApi.skipToNext()}
